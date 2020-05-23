@@ -10,11 +10,12 @@
 #import "CNUnits.h"
 
 #define CNMD5(string) cMD5(string)
-#define CNVersion ([[[UIDevice currentDevice] systemVersion] floatValue])
+#define CNVersinString [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define CNVersionNumber ([[[UIDevice currentDevice] systemVersion] floatValue])
 #define CNScreenWidth [UIScreen mainScreen].bounds.size.width
 #define CNScreenHeight [UIScreen mainScreen].bounds.size.height
 #define CNIsFullScreen UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])
-#define CNStatusBarHeight (CNVersion >= 8.0 ? ([[UIApplication sharedApplication] statusBarFrame].size.height) : (CNIsFullScreen ? ([[UIApplication sharedApplication] statusBarFrame].size.width) : ([[UIApplication sharedApplication] statusBarFrame].size.height)))
+#define CNStatusBarHeight (CNVersionNumber >= 8.0 ? ([[UIApplication sharedApplication] statusBarFrame].size.height) : (CNIsFullScreen ? ([[UIApplication sharedApplication] statusBarFrame].size.width) : ([[UIApplication sharedApplication] statusBarFrame].size.height)))
 #define CNNaviHeight (CNStatusBarHeight + 44)
 
 #ifdef DEBUG

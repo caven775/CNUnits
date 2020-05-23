@@ -63,3 +63,16 @@ extern BOOL cIsToday(NSDate *date);
 /// 是否为昨天
 /// @param date 日期
 extern BOOL cIsYesterday(NSDate *date);
+
+/// OC对象转JSON字符串
+/// @param obj OC对象
+extern NSString *cObj2Json(id obj);
+
+/// JSON字符串转OC对象
+/// @param json JSON字符串
+extern id cJson2Obj(NSString *json);
+
+/// 获取渐变图层
+/// @param rect 图层大小
+/// @param colors 渐变色
+extern CAGradientLayer *cGradientLayer(CGRect rect, NSArray <UIColor *>*colors);

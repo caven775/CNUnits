@@ -25,9 +25,9 @@ void cThreadSafe(dispatch_block_t block)
 UIColor *cColorA(NSInteger color, CGFloat alpha)
 {
     return [UIColor colorWithRed:((CGFloat)((color & 0xFF0000) >> 16)) / 255.0f
-    green:((CGFloat)((color & 0xFF00) >> 8)) / 255.0f
-     blue:((CGFloat)(color & 0xFF)) / 255.0f
-    alpha:alpha];
+                           green:((CGFloat)((color & 0xFF00) >> 8)) / 255.0f
+                            blue:((CGFloat)(color & 0xFF)) / 255.0f
+                           alpha:alpha];
 }
 
 /// 16进制颜色
@@ -147,3 +147,58 @@ BOOL cIsYesterday(NSDate *date)
     return cmps.day == 1;
 }
 
+/// OC对象转JSON字符串
+/// @param obj OC对象
+NSString *cObj2Json(id obj)
+{
+    if (!obj) {
+        return nil;
+    }
+    NSError *error;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:obj
+                                                   options:NSJSONWritingFragmentsAllowed
+                                                     error:&error];
+    if (error || !data) {
+        return nil;
+    }
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
+/// JSON字符串转OC对象
+/// @param json JSON字符串
+id cJson2Obj(NSString *json)
+{
+    if (!json || !json.length || [json isEqual:NSNull.null] || ![json isKindOfClass:NSString.class]) {
+        return nil;
+    }
+    NSError *error;
+    NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
+    if (!data) {
+        return nil;
+    }
+    id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingFragmentsAllowed error:&error];
+    if (error) {
+        return nil;
+    }
+    return obj;
+}
+
+/// 获取渐变图层
+/// @param rect 图层大小
+/// @param colors 渐变色
+CAGradientLayer *cGradientLayer(CGRect rect, NSArray <UIColor *>*colors)
+{
+    if (!colors || colors.count == 0) {
+        return nil;
+    }
+    NSMutableArray *cgColors = [[NSMutableArray alloc] initWithCapacity:colors.count];
+    for (UIColor *c in colors) {
+        [cgColors addObject:(__bridge id)c.CGColor];
+    }
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.colors = cgColors.copy;
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(0, 1);
+    gradientLayer.frame = rect;
+    return gradientLayer;
+}
