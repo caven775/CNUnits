@@ -1,0 +1,16 @@
+PODS:
+  - CNUnits (0.0.1)
+
+DEPENDENCIES:
+  - CNUnits (from `../`)
+
+EXTERNAL SOURCES:
+  CNUnits:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CNUnits: 3eb0819a2befcd71bd04dc0cfa58cae6e6566035
+
+PODFILE CHECKSUM: 886a50e984e672af178ce2387956b4a2ab3cbe2b
+
+COCOAPODS: 1.7.5
